@@ -1,0 +1,21 @@
+script.js
+        searchFor () {
+            let text = this.searchText.toLowerCase().trim();
+            
+            if (text === '') {
+                this.filteredProducts = this.products;
+            } else {
+                this.filteredProducts = this.products.filter((el) => {
+                    return el.product_name.toLowerCase().includes(text);//Метод includes() определяет, содержит ли массив определённый элемент, возвращая в зависимости от этого true или false.
+                });
+            }
+        }
+    },
+    mounted () {
+        this.getJson (`${API + this.catalogUrl}`)
+            .then (data => {
+                for (let el of data) {
+                    this.products.push (el)
+                }
+            });
+        this.filteredProducts = this.products;
